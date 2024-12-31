@@ -16,3 +16,9 @@ Which:
 
 LoRA introduces two low-rank matrices, A and B, to approximate the weight update.
 It mean, W = W + $\Delta$ ($\Delta = BA$)
+
+Initialy, with W (dxk), we had N params.  
+Then, we created A,B (dxr, and rxk) (Follow paper, we created B with zero matrix, and A with follow gaussian distribution).  
+So, we got total N + dxr + rxk params. But we only train on dxr + rxk params. It mean we inference on W + BA, but we backpropagation on BA only (freeze W).
+This is the main idea of LoRA.  
+My error of misunderstanding is that, I think only use BA for inference, then don't know how to backprobagation with only BA, but we inference with both W+BA, then calculate loss on branch BA, and freeze W.
